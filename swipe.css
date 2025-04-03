@@ -1,0 +1,36 @@
+.swipe-indicator {
+  position: fixed;
+  z-index: 9999;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  font-size: 32px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  pointer-events: none;
+  transition: transform 0.1s ease-out;
+}
+
+/* Reload indicator positioned at the top center */
+.swipe-indicator.reload {
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Back indicator positioned on the left side */
+.swipe-indicator.back {
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+}
+
+/* Forward indicator positioned on the right side */
+.swipe-indicator.forward {
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+}
+
