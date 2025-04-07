@@ -1,16 +1,15 @@
 # Summary
 
-Bring intuitive mobile-like navigation gestures to Firefox! Swipe down to reload, swipe from the left to go back, and from the right to go forward—with smooth animations and visual feedback.
+Bring intuitive mobile-like navigation gestures to Firefox! Swipe from the left to go back, and from the right to go forward—with smooth animations and visual feedback.
 
 # Description
 
 Swipe Navigator makes browsing more fluid and natural by adding gesture-based navigation to Firefox, as seen on other popular mobile browsers, like Brave. This extension allows you to:
 
-- Swipe down from the top of the page to reload
 - Swipe right-to-left from the left edge to go back
 - Swipe left-to-right from the right edge to go forward
 
-As you swipe, a subtle animated icon appears to let you know which action is about to be triggered: a rotating reload arrow, a scaling back arrow, or a forward arrow—all styled to stay visible and separate from page content.
+As you swipe, a subtle animated icon appears to let you know which action is about to be triggered: a scaling back arrow, or a forward arrow—all styled to stay visible and separate from page content.
 
 Designed with mobile devices in mind, but also works great on touch-enabled laptops and tablets. Lightweight, responsive, and works across all websites.
 
