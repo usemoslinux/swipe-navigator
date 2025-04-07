@@ -88,7 +88,6 @@
   document.addEventListener('touchend', function(e) {
     if (!isSwiping) return;
     const touch = e.changedTouches[0];
-    const endX = touch.clientX;
     const endY = touch.clientY;
     
     if (swipeDirection === "vertical") {
