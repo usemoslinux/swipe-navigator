@@ -1,36 +1,37 @@
 .swipe-indicator {
-  position: fixed;
-  z-index: 9999;
-  width: 60px;
-  height: 60px;
-  line-height: 60px;
-  text-align: center;
-  font-size: 32px;
-  color: white;
-  background-color: rgba(0, 0, 0, 0.6);
-  border-radius: 50%;
-  pointer-events: none;
-  transition: transform 0.1s ease-out;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    color: white;
+    display: flex;
+    font-size: 1rem;
+    height: 3rem;
+    justify-content: center;
+    line-height: 3rem;
+    pointer-events: none;
+    position: fixed;
+    text-align: center;
+    width: 3rem;
+    z-index: 9999;
 }
 
-/* Reload indicator positioned at the top center */
-.swipe-indicator.reload {
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
+/* Active state - orange color when minimum swipe is reached */
+.swipe-indicator.active {
+    color: #ff8c00;
+    /* Orange color */
 }
 
 /* Back indicator positioned on the left side */
 .swipe-indicator.back {
-  top: 50%;
-  left: 20px;
-  transform: translateY(-50%);
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
 }
 
 /* Forward indicator positioned on the right side */
 .swipe-indicator.forward {
-  top: 50%;
-  right: 20px;
-  transform: translateY(-50%);
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
 }
-
