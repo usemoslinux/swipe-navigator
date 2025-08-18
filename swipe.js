@@ -78,8 +78,10 @@
         }
         // Right edge swipe (forward)
         else if (indicatorElement && indicatorElement.classList.contains("forward")) {
-            // Check if swipe is long enough to trigger action
-            updateIndicatorState(Math.abs(dx) > SWIPE_MINIMUM);
+            // Check if swipe is long enough to trigger action. The user must
+            // drag leftwards from the right edge, so dx will be negative.
+            // Ensure we only activate when swiping in the correct direction.
+            updateIndicatorState(dx < -SWIPE_MINIMUM);
         }
     }, { passive: true });
 
