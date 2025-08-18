@@ -25,13 +25,13 @@
 /* Back indicator positioned on the left side */
 .swipe-indicator.back {
     top: 50%;
-    left: 20px;
+    left: -3rem;
     transform: translateY(-50%);
 }
 
 /* Forward indicator positioned on the right side */
 .swipe-indicator.forward {
     top: 50%;
-    right: 20px;
+    right: -3rem;
     transform: translateY(-50%);
 }

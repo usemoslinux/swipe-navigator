@@ -5,17 +5,28 @@
     const EDGE_THRESHOLD = 20;     // pixels from edge to consider an edge swipe
     const SWIPE_MINIMUM = 80;      // minimum pixels to swipe for action to trigger
 
-    // Remove any existing indicator element
+    // Remove any existing indicator element with slide out animation
     function removeIndicator() {
         if (indicatorElement) {
-            indicatorElement.remove();
-            indicatorElement = null;
+            document.body.style.overflow = ''; // reenable window scrolling
+            
+            // Remove visible class to trigger slide out animation
+            indicatorElement.classList.remove('visible');
+            
+            if (indicatorElement) {
+                indicatorElement.remove();
+                indicatorElement = null;
+            }
         }
     }
 
     // Create and add the visual indicator element with a given type (back/forward)
     function showIndicator(type) {
         if (indicatorElement) return;
+
+        // disable window scrolling
+        document.body.style.overflow = 'hidden';
+
         indicatorElement = document.createElement('div');
         indicatorElement.className = 'swipe-indicator ' + type;
 
@@ -37,14 +48,34 @@
         document.body.appendChild(indicatorElement);
     }
 
-    // Update indicator state (active/inactive) based on swipe distance
-    function updateIndicatorState(isActive) {
-        if (indicatorElement) {
-            if (isActive) {
-                indicatorElement.classList.add('active');
-            } else {
-                indicatorElement.classList.remove('active');
-            }
+    // Update indicator position and state based on swipe distance
+    function updateIndicatorPosition(dx) {
+        if (!indicatorElement) return;
+        
+        // Calculate position based on swipe progress
+        let translateX = 0;
+        let isActive = false;
+        
+        if (indicatorElement.classList.contains("back")) {
+            // For back swipe, move right as user swipes right
+            translateX = Math.max(0, Math.min(dx, SWIPE_MINIMUM));
+            isActive = dx > SWIPE_MINIMUM;
+        } else if (indicatorElement.classList.contains("forward")) {
+            // For forward swipe, move left as user swipes left (dx is negative)
+            translateX = Math.min(0, Math.max(dx, -SWIPE_MINIMUM));
+            isActive = dx < -SWIPE_MINIMUM;
+        }
+        
+        // Apply transform with swipe progress
+        const baseTransform = `translateY(-50%)`;
+        const slideTransform = `translateX(${translateX}px)`;
+        indicatorElement.style.transform = `${baseTransform} ${slideTransform}`;
+        
+        // Update active state
+        if (isActive) {
+            indicatorElement.classList.add('active');
+        } else {
+            indicatorElement.classList.remove('active');
         }
     }
 
@@ -65,41 +96,36 @@
         }
     }, { passive: true });
 
-    // Touch move: determine swipe direction and update the indicator state
+    // Touch move: determine swipe direction and update the indicator position
     document.addEventListener('touchmove', function (e) {
         if (!isSwiping || e.touches.length !== 1) return;
         const touch = e.touches[0];
         const dx = touch.clientX - touchStartX;
 
-        // Left edge swipe (back)
-        if (indicatorElement && indicatorElement.classList.contains("back")) {
-            // Check if swipe is long enough to trigger action
-            updateIndicatorState(dx > SWIPE_MINIMUM);
-        }
-        // Right edge swipe (forward)
-        else if (indicatorElement && indicatorElement.classList.contains("forward")) {
-            // Check if swipe is long enough to trigger action. The user must
-            // drag leftwards from the right edge, so dx will be negative.
-            // Ensure we only activate when swiping in the correct direction.
-            updateIndicatorState(dx < -SWIPE_MINIMUM);
-        }
+        // Update indicator position based on swipe progress
+        updateIndicatorPosition(dx);
     }, { passive: true });
 
     // Touch end: if the swipe meets the threshold, trigger the appropriate navigation action
     document.addEventListener('touchend', function (e) {
         if (!isSwiping) return;
-
-        // Only trigger actions if the indicator is in active state
-        if (indicatorElement && indicatorElement.classList.contains("active")) {
-            if (indicatorElement.classList.contains("back")) {
-                window.history.back();
-            } else if (indicatorElement.classList.contains("forward")) {
-                window.history.forward();
+        
+        if (indicatorElement) {
+            // Only trigger actions if the indicator is in active state
+            if (indicatorElement.classList.contains("active")) {
+                if (indicatorElement.classList.contains("back")) {
+                    removeIndicator();
+                    window.history.back();
+                } else if (indicatorElement.classList.contains("forward")) {
+                    removeIndicator();
+                    window.history.forward();
+                }
+            } else {
+                removeIndicator();
             }
         }
 
         isSwiping = false;
-        removeIndicator();
     });
 
     // Handle touch cancel event
