@@ -9,9 +9,11 @@
     height: 3rem;
     justify-content: center;
     line-height: 3rem;
+    opacity: 0;
     pointer-events: none;
     position: fixed;
     text-align: center;
+    transition: opacity 0.2s ease;
     width: 3rem;
     z-index: 9999;
 }
@@ -20,6 +22,10 @@
 .swipe-indicator.active {
     color: #ff8c00;
     /* Orange color */
+}
+
+.swipe-indicator.visible {
+    opacity: 1;
 }
 
 /* Back indicator positioned on the left side */
