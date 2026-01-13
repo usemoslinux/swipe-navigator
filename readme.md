@@ -6,8 +6,8 @@ Bring intuitive mobile-like navigation gestures to Firefox! Swipe from the left 
 
 Swipe Navigator makes browsing more fluid and natural by adding gesture-based navigation to Firefox, as seen on other popular mobile browsers, like Brave. This extension allows you to:
 
-- Swipe right-to-left from the left edge to go back
-- Swipe left-to-right from the right edge to go forward
+- Swipe left-to-right from the left edge to go back
+- Swipe right-to-left from the right edge to go forward
 
 As you swipe, a subtle animated icon appears to let you know which action is about to be triggered: a scaling back arrow, or a forward arrow—all styled to stay visible and separate from page content.
 

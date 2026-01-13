@@ -20,7 +20,7 @@
         }
     }
 
-    // Create and add the visual indicator element with a given type (back/forward)
+    // Create and add the visual navigation indicator (back or forward)
     function showIndicator(type) {
         if (indicatorElement) return;
 
@@ -29,6 +29,7 @@
 
         indicatorElement = document.createElement('div');
         indicatorElement.className = 'swipe-indicator ' + type;
+        indicatorElement.classList.add('visible');
 
         // Use simple Unicode icons for visual feedback.
         if (type === 'back') {
