@@ -1,25 +1,29 @@
 {
     "manifest_version": 2,
     "name": "Swipe Navigator",
-    "version": "1.4",
+    "version": "1.5",
     "description": "Enables horizontal swipes for Back/Forward navigation on mobile devices.",
     "icons": {
         "48": "icons/48.png",
         "96": "icons/96.png"
     },
     "permissions": [
+        "tabs",
         "<all_urls>"
     ],
+    "background": {
+        "scripts": [
+            "background.js"
+        ]
+    },
     "content_scripts": [
         {
             "matches": [
-                "<all_urls>"
+                "<all_urls>",
+                "file://*/*"
             ],
             "js": [
                 "swipe.js"
-            ],
-            "css": [
-                "swipe.css"
             ],
             "run_at": "document_idle"
         }

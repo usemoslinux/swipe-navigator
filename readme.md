@@ -17,8 +17,13 @@ No settings. No ads. Just smooth gesture navigation.
 
 # Permissions
 
-Access to all sites is required to inject the gesture detection script and show visual feedback during your swipes.
+Access to all sites is required to inject the gesture detection script and show visual feedback during your swipes. The `tabs` permission is used to trigger back/forward navigation at the browser level.
 
 # Compatibility
 
 Works best on Firefox for Android or any touch-enabled device running Firefox.
+
+# Limitations
+
+- Content scripts do not run on privileged Firefox pages (for example: `about:` pages, `addons.mozilla.org`, or the built-in PDF viewer).
+- File URL support requires you to allow file access for the extension (Desktop: open `about:addons`, open the extension details, and enable "Access your data for file URLs"; Android: file URL access is not currently available for extensions).
