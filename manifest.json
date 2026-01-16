@@ -23,7 +23,7 @@
                 "file://*/*"
             ],
             "js": [
-                "swipe.js"
+                "js/swipe.js"
             ],
             "run_at": "document_idle"
         }
