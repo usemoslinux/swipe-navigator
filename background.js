@@ -9,6 +9,9 @@ browser.runtime.onMessage.addListener(function (message, sender) {
     }
 
     if (message.direction === 'back') {
+        if (message.canGoBack === false) {
+            return browser.tabs.remove(tabId);
+        }
         return browser.tabs.goBack(tabId);
     }
 

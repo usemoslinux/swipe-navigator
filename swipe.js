@@ -7,6 +7,7 @@
     let indicatorHost = null;
     let previousBodyOverflow = null;
     let indicatorRemovalTimer = null;
+    let navigationState = { supported: false, canGoBack: true, canGoForward: true };
 
     const EDGE_THRESHOLD = 20;     // pixels from edge to consider an edge swipe
     const SWIPE_MINIMUM = 80;      // minimum pixels to swipe for action to trigger
@@ -156,7 +157,8 @@
         if (typeof browser !== 'undefined' && browser.runtime && browser.runtime.sendMessage) {
             browser.runtime.sendMessage({
                 type: 'swipe-navigate',
-                direction: direction
+                direction: direction,
+                canGoBack: navigationState.supported ? navigationState.canGoBack : undefined
             }).catch(function () {
                 if (direction === 'back') {
                     window.history.back();
@@ -172,6 +174,19 @@
         } else if (direction === 'forward') {
             window.history.forward();
         }
+    }
+
+    function updateNavigationState() {
+        const nav = window.navigation;
+        const canGoBack = nav && typeof nav.canGoBack === 'boolean' ? nav.canGoBack : null;
+        const canGoForward = nav && typeof nav.canGoForward === 'boolean' ? nav.canGoForward : null;
+
+        if (canGoBack === null || canGoForward === null) {
+            navigationState = { supported: false, canGoBack: true, canGoForward: true };
+            return;
+        }
+
+        navigationState = { supported: true, canGoBack: canGoBack, canGoForward: canGoForward };
     }
 
     // Update indicator position and state based on swipe distance
@@ -210,10 +225,16 @@
         const isLeftEdge = touchStartX < EDGE_THRESHOLD;
         const isRightEdge = touchStartX > (window.innerWidth - EDGE_THRESHOLD);
 
+        updateNavigationState();
+
         if (isLeftEdge) {
             isSwiping = true;
             showIndicator("back");
         } else if (isRightEdge) {
+            if (navigationState.supported && !navigationState.canGoForward) {
+                isSwiping = false;
+                return;
+            }
             isSwiping = true;
             showIndicator("forward");
         } else {
