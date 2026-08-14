@@ -1,10 +1,10 @@
 browser.runtime.onMessage.addListener(function (message, sender) {
-    if (!message || message.type !== 'swipe-navigate') {
+    if (!message || message.type !== 'swipe-navigate' || sender.frameId !== 0) {
         return;
     }
 
     const tabId = sender && sender.tab && sender.tab.id;
-    if (!tabId) {
+    if (typeof tabId !== 'number') {
         return;
     }
 
