@@ -25,5 +25,5 @@ Works best on Firefox for Android or any touch-enabled device running Firefox.
 
 # Limitations
 
-- Content scripts do not run on privileged Firefox pages (for example: `about:` pages, `addons.mozilla.org`, or the built-in PDF viewer).
+- Content scripts do not run on privileged Firefox pages, including `about:` pages and the built-in PDF viewer. Mozilla-hosted pages, such as `addons.mozilla.org`, may also restrict extensions from running scripts.
 - File URL support requires you to allow file access for the extension (Desktop: open `about:addons`, open the extension details, and enable "Access your data for file URLs"; Android: file URL access is not currently available for extensions).
